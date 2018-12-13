@@ -5,9 +5,10 @@ Element::Element()
 	this->nodes = new Node[4];
 };
 
-Element::Element(Node* arg) 
+Element::Element(Node* arg, double conductivity) 
 { 
 	this->nodes = arg; 
+	this->conductivity = conductivity;
 }
 
 Element::~Element() {};

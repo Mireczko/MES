@@ -1,6 +1,6 @@
 class Node
 {
-public:
+	public:
 		double x;
 		double y;
 		int numer;

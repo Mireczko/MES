@@ -11,7 +11,7 @@ Grid::Grid(int nH, int nL, double H, double L)
 	this->L = L;
 	this->nN = nH * nL;
 	this->nodes = new Node[nN];
-	this->elements = new Element[nE];
+
 
 
 	//W Y P E £ N I A N I E    T A B L I C Y   N O D Ó W
@@ -28,6 +28,8 @@ Grid::Grid(int nH, int nL, double H, double L)
 			k++;
 		}
 	}
+
+	this->elements = new Element[nE];
 
 	//W Y P E £ N I A N I E    T A B L I C Y   E L E M E N T Ó W
 	k = 0;
@@ -58,23 +60,27 @@ void Grid::printGrid()
 			<< this->getElements()[i].getNodes()[3].getNumer();
 		std::cout <<std::endl <<std::endl;
 
-		Jacobian jacobian(elements[0]);
+		Jacobian jacobian(elements[0].nodes);
+		MatrixH matrix(jacobian, 30);
+
 		//for (int i = 0; i < 4; i++)
 		//{
 		//	for (int j = 0; j < 4; j++)
 		//	{
-		//		std::cout << jacobian.dNdEta[i][j] << "  ";
+		//		std::cout << jacobian.dNdY[i][j] << "  ";
 		//	}
 		//	std::cout << std::endl;
 		//}
+
 		for (int i = 0; i < 4; i++)
 		{
 			for (int j = 0; j < 4; j++)
 			{
-				std::cout << jacobian.dNdY[i][j] << "  ";
+				std::cout << matrix.H[i][j] << "  ";
 			}
-			std::cout << std::endl;
+		std::cout << std::endl;
 		}
+
 	}
 }
 

@@ -10,7 +10,6 @@ class Grid
 		double L, H;
 		Node* nodes;
 		Element* elements;
-		//Jacobian* jacobian;
 
 	public:
 		Grid();

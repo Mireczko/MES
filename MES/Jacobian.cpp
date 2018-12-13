@@ -2,8 +2,10 @@
 #include "Element.h"
 #include <math.h>
 
-Jacobian::Jacobian(Element element)
+Jacobian::Jacobian(Node* nodes)
 {
+	//this->element = element;
+
 	this->eta = new double[4];
 	eta[0] = -(1 / (sqrt(3)));
 	eta[1] = -(1 / (sqrt(3)));
@@ -29,8 +31,8 @@ Jacobian::Jacobian(Element element)
 
 	for (int i = 0; i < 4; i++)
 	{
-		x[i] = element.nodes[i].x;
-		y[i] = element.nodes[i].y;
+		x[i] = nodes[i].x;
+		y[i] = nodes[i].y;
 	}
 
 	// DYNAMICZNA ALOKACJA PAMIÊCI DLA PÓL BÊD¥CYCH TABLICAMI 2D
@@ -42,8 +44,6 @@ Jacobian::Jacobian(Element element)
 	dNdX = new double*[4];
 	dNdY = new double*[4];
 
-	Jakobian_odwrotny = new double*[4];
-
 	for (int i = 0; i < 4; i++)
 	{
 		N[i] = new double[4];
@@ -51,7 +51,6 @@ Jacobian::Jacobian(Element element)
 		dNdEta[i] = new double[4];
 		dNdX[i] = new double[4];
 		dNdY[i] = new double[4];
-		Jakobian_odwrotny[i] = new double[4];
 	}
 
 

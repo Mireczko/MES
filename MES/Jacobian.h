@@ -1,5 +1,5 @@
 #pragma once
-#include "Element.h"
+#include "Node.h"
 class Jacobian {
 	public:
 		double** N;
@@ -16,10 +16,9 @@ class Jacobian {
 		double* detJ;
 		double* x;
 		double* y;
-		double** Jakobian_odwrotny;
 
 	public:
 		Jacobian();
-		Jacobian(Element element);
+		Jacobian(Node*);
 		~Jacobian();
 };
