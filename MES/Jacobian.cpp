@@ -42,6 +42,8 @@ Jacobian::Jacobian(Element element)
 	dNdX = new double*[4];
 	dNdY = new double*[4];
 
+	Jakobian_odwrotny = new double*[4];
+
 	for (int i = 0; i < 4; i++)
 	{
 		N[i] = new double[4];
@@ -49,6 +51,7 @@ Jacobian::Jacobian(Element element)
 		dNdEta[i] = new double[4];
 		dNdX[i] = new double[4];
 		dNdY[i] = new double[4];
+		Jakobian_odwrotny[i] = new double[4];
 	}
 
 
@@ -87,16 +90,16 @@ Jacobian::Jacobian(Element element)
 	//WYZNACZNIK MACIERZY J
 	for (int i = 0; i < 4; i++)
 	{
-		detJ[i] = (dXdEta[i] * dYdKsi[i]) - (dYdEta[i] * dXdKsi[i]);
+		detJ[i] = (dXdKsi[i] * dYdEta[i]) - (dYdKsi[i] * dXdEta[i]);
 	}
 
 	//POCHODNE FUNKCJI KSZTA£TU PO X I Y
 	for (int i = 0; i < 4; i++)
 	{
-		dNdX[i][0] = (1.0 / detJ[i]) * (dYdEta[i] * dNdKsi[i][0] - (dYdKsi[i] * dNdEta[i][0]));
-		dNdX[i][1] = (1.0 / detJ[i]) * (dYdEta[i] * dNdKsi[i][1] - (dYdKsi[i] * dNdEta[i][1]));
-		dNdX[i][2] = (1.0 / detJ[i]) * (dYdEta[i] * dNdKsi[i][2] - (dYdKsi[i] * dNdEta[i][2]));
-		dNdX[i][3] = (1.0 / detJ[i]) * (dYdEta[i] * dNdKsi[i][3] - (dYdKsi[i] * dNdEta[i][3]));
+		dNdX[i][0] = (1.0 / detJ[i]) * ((dYdEta[i] * dNdKsi[i][0]) - (dYdKsi[i] * dNdEta[i][0]));
+		dNdX[i][1] = (1.0 / detJ[i]) * ((dYdEta[i] * dNdKsi[i][1]) - (dYdKsi[i] * dNdEta[i][1]));
+		dNdX[i][2] = (1.0 / detJ[i]) * ((dYdEta[i] * dNdKsi[i][2]) - (dYdKsi[i] * dNdEta[i][2]));
+		dNdX[i][3] = (1.0 / detJ[i]) * ((dYdEta[i] * dNdKsi[i][3]) - (dYdKsi[i] * dNdEta[i][3]));
 
 		dNdY[i][0] = (1.0 / detJ[i]) * (-dXdEta[i] * dNdKsi[i][0] + dXdKsi[i] * dNdEta[i][0]);
 		dNdY[i][1] = (1.0 / detJ[i]) * (-dXdEta[i] * dNdKsi[i][1] + dXdKsi[i] * dNdEta[i][1]);

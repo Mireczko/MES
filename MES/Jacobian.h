@@ -16,6 +16,7 @@ class Jacobian {
 		double* detJ;
 		double* x;
 		double* y;
+		double** Jakobian_odwrotny;
 
 	public:
 		Jacobian();

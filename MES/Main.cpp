@@ -7,8 +7,8 @@ using namespace Eigen;
 
 int main()
 {
-	int nH = 2;
-	int nL = 2;
+	int nH = 3;
+	int nL = 3;
 	double H = 0.025;
 	double L = 0.025;
 

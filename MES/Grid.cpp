@@ -23,8 +23,8 @@ Grid::Grid(int nH, int nL, double H, double L)
 		for (double j = 0; j < nH*jIncr; j += jIncr)
 		{
 			nodes[k].numer = k;
-			nodes[k].setx(j);
-			nodes[k].sety(i);
+			nodes[k].setx(i);
+			nodes[k].sety(j);
 			k++;
 		}
 	}
@@ -71,7 +71,7 @@ void Grid::printGrid()
 		{
 			for (int j = 0; j < 4; j++)
 			{
-				std::cout << jacobian.dNdX[i][j] << "  ";
+				std::cout << jacobian.dNdY[i][j] << "  ";
 			}
 			std::cout << std::endl;
 		}
