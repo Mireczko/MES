@@ -45,12 +45,13 @@ Grid::Grid(int nH, int nL, double H, double L)
 		}
 	}
 
-	//OBLICZANIE MACIERZY JACOBIEGO DLA KA¯DEGO ELEMENTU
+	//OBLICZANIE MACIERZY JACOBIEGO ORAZ MACIERZY H DLA KA¯DEGO ELEMENTU
 
 	for (int i = 0; i < nE; i++)
 	{
 		elements[i].jacobian = new Jacobian(elements[i].getNodes());
 		elements[i].matrixh = new MatrixH(elements[i].jacobian, 30);
+		elements[i].matrixc = new MatrixC(elements[i].jacobian, 700, 7800);
 	}
 }
 
@@ -66,18 +67,11 @@ void Grid::printGrid()
 			<< this->getElements()[i].getNodes()[1].getNumer() << ", "
 			<< this->getElements()[i].getNodes()[2].getNumer() << ", "
 			<< this->getElements()[i].getNodes()[3].getNumer();
-		std::cout <<std::endl <<std::endl;
-		elements[i].printMatrixH();
-		std::cout << std::endl << std::endl;
 
-		//for (int i = 0; i < 4; i++)
-		//{
-		//	for (int j = 0; j < 4; j++)
-		//	{
-		//		std::cout << jacobian.dNdY[i][j] << "  ";
-		//	}
-		//	std::cout << std::endl;
-		//}
+		//MACIERZ H KONTROLNIE
+		std::cout <<std::endl <<std::endl;
+		elements[i].printMatrixC();
+		std::cout << std::endl << std::endl;
 	}
 }
 
@@ -87,42 +81,34 @@ Element* Grid::getElements()
 {
 	return this->elements;
 }
-
 void Grid::setnH(int a)
 {
 	this->nH = a;
 }
-
 void Grid::setnL(int a)
 {
 	this->nL = a;
 }
-
 void Grid::setnN(int a)
 {
 	this->nN = a;
 }
-
 void Grid::setnE(int a)
 {
 	this->nE = a;
 }
-
 int Grid::getnH()
 {
 	return this->nH;
 }
-
 int Grid::getnL()
 {
 	return this->nL;
 }
-
 int Grid::getnN()
 {
 	return this->nN;
 }
-
 int Grid::getnE()
 {
 	return this->nE;

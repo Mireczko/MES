@@ -1,5 +1,6 @@
 #pragma once
 #include "MatrixH.h"
+#include "MatrixC.h"
 
 class Element
 {
@@ -8,6 +9,7 @@ class Element
 		double conductivity;
 		Jacobian *jacobian;
 		MatrixH* matrixh;
+		MatrixC* matrixc;
 		//MatrixH* matrixh = new MatrixH(jacobian, conductivity);
 
 	public:
@@ -16,4 +18,5 @@ class Element
 		~Element();
 		Node* getNodes();
 		void printMatrixH();
+		void printMatrixC();
 };

@@ -29,3 +29,15 @@ void Element::printMatrixH()
 		std::cout << std::endl;
 	}
 }
+
+void Element::printMatrixC()
+{
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			std::cout << this->matrixc->C[i][j] << "  ";
+		}
+		std::cout << std::endl;
+	}
+}
