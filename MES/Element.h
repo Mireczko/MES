@@ -10,6 +10,7 @@ class Element
 		Jacobian *jacobian;
 		MatrixH* matrixh;
 		MatrixC* matrixc;
+		bool *isOnEdge;
 		//MatrixH* matrixh = new MatrixH(jacobian, conductivity);
 
 	public:

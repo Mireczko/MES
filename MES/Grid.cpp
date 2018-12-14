@@ -45,6 +45,38 @@ Grid::Grid(int nH, int nL, double H, double L)
 		}
 	}
 
+	//WARUNKI BRZEGOWE
+	for (int i = 0; i < nE; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			//WARUNEK BRZEGOWY Z LEWEJ STRONY
+			if (elements[i].getNodes()[j].x == 0)
+			{
+				 elements[i].isOnEdge[0] = true;
+			}
+
+			//WARUNEK BRZEGOWY Z DO£U
+			if (elements[i].nodes[j].y == 0)
+			{
+				elements[i].isOnEdge[1] = true;
+			}
+
+			//WARUNEK BRZEGOWY Z PRAWEJ STRONY
+			if (elements[i].getNodes()[j].x == L)
+			{
+				elements[i].isOnEdge[2] = true;
+			}
+
+			//WARUNEK BRZEGOWY Z GÓRY
+			if (elements[i].getNodes()[j].y == H)
+			{
+				elements[i].isOnEdge[3] = true;
+			}
+		}
+
+	}
+
 	//OBLICZANIE MACIERZY JACOBIEGO ORAZ MACIERZY H DLA KA¯DEGO ELEMENTU
 
 	for (int i = 0; i < nE; i++)
@@ -67,6 +99,14 @@ void Grid::printGrid()
 			<< this->getElements()[i].getNodes()[1].getNumer() << ", "
 			<< this->getElements()[i].getNodes()[2].getNumer() << ", "
 			<< this->getElements()[i].getNodes()[3].getNumer();
+
+		std::cout << std::endl;
+		std::cout << "Warunki: ";
+		for (int j = 0; j < 4; j++)
+		{
+			std::cout << this->getElements()[i].isOnEdge[j] << "  ";
+		}
+		std::cout << std::endl;
 
 		//MACIERZ H KONTROLNIE
 		std::cout <<std::endl <<std::endl;

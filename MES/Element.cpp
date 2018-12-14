@@ -3,12 +3,19 @@
 Element::Element() 
 {
 	this->nodes = new Node[4];
+
+	isOnEdge = new bool[4];
+	for (int i = 0; i < 4; i++)
+	{
+		isOnEdge[i] = false;
+	}
 };
 
 Element::Element(Node* arg, double conductivity) 
 { 
 	this->nodes = arg; 
 	this->conductivity = conductivity;
+
 }
 
 Element::~Element() {};
