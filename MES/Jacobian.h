@@ -19,6 +19,6 @@ class Jacobian {
 
 	public:
 		Jacobian();
-		Jacobian(Node*);
+		Jacobian(Node *);
 		~Jacobian();
 };

@@ -6,9 +6,8 @@ class Element
 	public:
 		Node* nodes;
 		double conductivity;
-		Jacobian jacobian;
-		MatrixH matrixh;
-		//Jacobian* jacobian = new Jacobian(nodes);
+		Jacobian *jacobian;
+		MatrixH* matrixh;
 		//MatrixH* matrixh = new MatrixH(jacobian, conductivity);
 
 	public:
@@ -16,4 +15,5 @@ class Element
 		Element(Node*, double);
 		~Element();
 		Node* getNodes();
+		void printMatrixH();
 };

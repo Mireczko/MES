@@ -3,18 +3,18 @@
 class MatrixH
 {
 	public:
-		Jacobian jacobian;
+		Jacobian* jacobian;
 		double ***MatrixX;
 		double ***MatrixY;
 		double ***sumXY;
-		double conductivity=30;
 		double **H;
+		double conductivity = 30;
 
 	public:
 		//Jacobian getJacobian();
 		//double*** getMatrixX();
 		//double*** getMatrixY();
-		MatrixH(Jacobian, double);
+		MatrixH(Jacobian*, double);
 		MatrixH();
 		~MatrixH();
 };

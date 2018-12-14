@@ -44,6 +44,14 @@ Grid::Grid(int nH, int nL, double H, double L)
 			elements[k].getNodes()[3] = nodes[k + 1+i];
 		}
 	}
+
+	//OBLICZANIE MACIERZY JACOBIEGO DLA KA¯DEGO ELEMENTU
+
+	for (int i = 0; i < nE; i++)
+	{
+		elements[i].jacobian = new Jacobian(elements[i].getNodes());
+		elements[i].matrixh = new MatrixH(elements[i].jacobian, 30);
+	}
 }
 
 void Grid::printGrid()
@@ -59,9 +67,8 @@ void Grid::printGrid()
 			<< this->getElements()[i].getNodes()[2].getNumer() << ", "
 			<< this->getElements()[i].getNodes()[3].getNumer();
 		std::cout <<std::endl <<std::endl;
-
-		Jacobian jacobian(elements[0].nodes);
-		MatrixH matrix(jacobian, 30);
+		elements[i].printMatrixH();
+		std::cout << std::endl << std::endl;
 
 		//for (int i = 0; i < 4; i++)
 		//{
@@ -71,16 +78,6 @@ void Grid::printGrid()
 		//	}
 		//	std::cout << std::endl;
 		//}
-
-		for (int i = 0; i < 4; i++)
-		{
-			for (int j = 0; j < 4; j++)
-			{
-				std::cout << matrix.H[i][j] << "  ";
-			}
-		std::cout << std::endl;
-		}
-
 	}
 }
 

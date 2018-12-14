@@ -4,8 +4,6 @@
 
 Jacobian::Jacobian(Node* nodes)
 {
-	//this->element = element;
-
 	this->eta = new double[4];
 	eta[0] = -(1 / (sqrt(3)));
 	eta[1] = -(1 / (sqrt(3)));
@@ -63,7 +61,7 @@ Jacobian::Jacobian(Node* nodes)
 		N[i][3] = 0.25*(1 - ksi[i])*(1 + eta[i]);
 	}
 
-	//POCHODNE FUNKCJI KSZTA£TU WZGLÊDEM OSI KSI ORAZ ETA     dN/dKsi   ORAZ   dN/dEta
+	// POCHODNE FUNKCJI KSZTA£TU WZGLÊDEM OSI KSI ORAZ ETA     dN/dKsi   ORAZ   dN/dEta
 	for (int i = 0; i < 4; i++)
 	{
 		dNdKsi[i][0] = -0.25*(1 - eta[i]);
@@ -77,7 +75,7 @@ Jacobian::Jacobian(Node* nodes)
 		dNdEta[i][3] = 0.25*(1 - ksi[i]);
 	}
 
-	//JAKOBIAN PRZEKSZTA£CENIA      dX/dKsi, dX/dEta, dYdKsi, dYdEta
+	// JAKOBIAN PRZEKSZTA£CENIA      dX/dKsi, dX/dEta, dYdKsi, dYdEta
 	for (int i = 0; i < 4; i++)
 	{
 		dXdKsi[i] = dNdKsi[i][0] * x[0] + dNdKsi[i][1] * x[1] + dNdKsi[i][2] * x[2] + dNdKsi[i][3] * x[3];
@@ -86,13 +84,13 @@ Jacobian::Jacobian(Node* nodes)
 		dYdEta[i] = dNdEta[i][0] * y[0] + dNdEta[i][1] * y[1] + dNdEta[i][2] * y[2] + dNdEta[i][3] * y[3];
 	}
 
-	//WYZNACZNIK MACIERZY J
+	// WYZNACZNIK MACIERZY J
 	for (int i = 0; i < 4; i++)
 	{
 		detJ[i] = (dXdKsi[i] * dYdEta[i]) - (dYdKsi[i] * dXdEta[i]);
 	}
 
-	//POCHODNE FUNKCJI KSZTA£TU PO X I Y
+	// POCHODNE FUNKCJI KSZTA£TU PO X I Y
 	for (int i = 0; i < 4; i++)
 	{
 		dNdX[i][0] = (1.0 / detJ[i]) * ((dYdEta[i] * dNdKsi[i][0]) - (dYdKsi[i] * dNdEta[i][0]));

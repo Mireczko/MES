@@ -3,7 +3,7 @@
 MatrixH::MatrixH(){}
 MatrixH::~MatrixH(){}
 
-MatrixH::MatrixH(Jacobian jacobian, double conductivity)
+MatrixH::MatrixH(Jacobian* jacobian, double conductivity)
 {
 
 	this->jacobian = jacobian;
@@ -52,12 +52,14 @@ MatrixH::MatrixH(Jacobian jacobian, double conductivity)
 		{
 			for (int k = 0; k < 4; k++)
 			{
-				MatrixX[i][j][k] = jacobian.dNdX[i][j] * jacobian.dNdX[i][k] * jacobian.detJ[i];
-				MatrixY[i][j][k] = jacobian.dNdY[i][j] * jacobian.dNdY[i][k] * jacobian.detJ[i];
+				MatrixX[i][j][k] = jacobian->dNdX[i][j] * jacobian->dNdX[i][k] * jacobian->detJ[i];
+				MatrixY[i][j][k] = jacobian->dNdY[i][j] * jacobian->dNdY[i][k] * jacobian->detJ[i];
 			}
 		}
 	}
 
+
+	//SUMA {dN/dx}{dN/dx}^T  +  {dN/dy}{dN/dy}^T PRZEMNO¯ONA PRZEZ PRZEWODNOŒÆ CIEPLN¥
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
@@ -69,6 +71,7 @@ MatrixH::MatrixH(Jacobian jacobian, double conductivity)
 		}
 	}
 
+	//MACIERZ H - SUMA ODPOWIADAJ¥CYCH ELEMENTÓW DLA PUNTKÓW CA£KOWANIA
 	for (int i = 0; i < 4; i++)
 	{
 		for (int j = 0; j < 4; j++)
