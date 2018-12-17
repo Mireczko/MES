@@ -10,6 +10,8 @@ class Grid
 		double L, H;
 		Node* nodes;
 		Element* elements;
+		double** globalMatrixH;
+		double** globalMatrixC;
 
 	public:
 		Grid();

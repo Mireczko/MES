@@ -12,7 +12,22 @@ Grid::Grid(int nH, int nL, double H, double L)
 	this->nN = nH * nL;
 	this->nodes = new Node[nN];
 
-
+	//DYNAMICZNA ALOKACJA TABLIC 2D
+	globalMatrixH = new double *[nH*nL];
+	globalMatrixC = new double *[nH*nL];
+	for (int i = 0; i < nH*nL; i++)
+	{
+		globalMatrixH[i] = new double[nH*nL];
+		globalMatrixC[i] = new double[nH*nL];
+	}	
+	for (int i = 0; i < nH*nL; i++)
+	{
+		for (int j = 0; j < nH*nL; j++)
+		{
+			globalMatrixH[i][j] = 0;
+			globalMatrixC[i][j] = 0;
+		}
+	}
 
 	//W Y P E £ N I A N I E    T A B L I C Y   N O D Ó W
 	int k = 0;
@@ -82,8 +97,33 @@ Grid::Grid(int nH, int nL, double H, double L)
 	for (int i = 0; i < nE; i++)
 	{
 		elements[i].jacobian = new Jacobian(elements[i].getNodes());
-		elements[i].matrixh = new MatrixH(elements[i].jacobian, 30);
+		elements[i].matrixh = new MatrixH(elements[i].jacobian, 25);
 		elements[i].matrixc = new MatrixC(elements[i].jacobian, 700, 7800);
+	}
+
+
+	//GLOBALNA MACIERZ H
+	for (int i = 0; i < nE; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			for (int k = 0; k < 4; k++)
+			{
+				globalMatrixH[elements[i].nodes[j].numer][elements[i].nodes[k].numer] += elements[i].matrixh->H[j][k];
+			}
+		}
+	}
+
+	//GLOBALNA MACIERZ C
+	for (int i = 0; i < nE; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			for (int k = 0; k < 4; k++)
+			{
+				globalMatrixC[elements[i].nodes[j].numer][elements[i].nodes[k].numer] += elements[i].matrixc->C[j][k];
+			}
+		}
 	}
 }
 
@@ -108,10 +148,19 @@ void Grid::printGrid()
 		}
 		std::cout << std::endl;
 
-		//MACIERZ H KONTROLNIE
-		std::cout <<std::endl <<std::endl;
-		elements[i].printMatrixC();
-		std::cout << std::endl << std::endl;
+		////MACIERZ H KONTROLNIE
+		//std::cout <<std::endl <<std::endl;
+		//elements[i].printMatrixH();
+		//std::cout << std::endl << std::endl;
+	}
+	//MACIERZ H/C GLOBALNA KONTROLNIE
+	for (int i = 0; i < nL*nH; i++)
+	{
+		for (int j = 0; j < nL*nH; j++)
+		{
+			std::cout << globalMatrixC[i][j] << "  ";
+		}
+		std::cout << std::endl;
 	}
 }
 

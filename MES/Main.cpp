@@ -6,10 +6,10 @@ using namespace Eigen;
 
 int main()
 {
-	int nH = 5;
-	int nL = 3;
+	int nH = 4;
+	int nL = 4;
 	double H = 0.1;
-	double L = 0.050;
+	double L = 0.1;
 
 	Grid* siatka = new Grid(nH, nL, H, L);
 	siatka->printGrid();
