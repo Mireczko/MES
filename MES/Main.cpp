@@ -1,17 +1,14 @@
-#include <Eigen/Dense>
-#include "Grid.h"
+//#include <Eigen/Dense>
 
-using namespace Eigen;
+#include "Grid.h"
+#include "GlobalData.h"
+extern GlobalData* data;
+//using namespace Eigen;
 
 
 int main()
 {
-	int nH = 4;
-	int nL = 4;
-	double H = 0.1;
-	double L = 0.1;
-
-	Grid* siatka = new Grid(nH, nL, H, L);
+	Grid* siatka = new Grid(data->nH, data->nL, data->H, data->L);
 	siatka->printGrid();
 
 	system("pause");

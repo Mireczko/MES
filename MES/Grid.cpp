@@ -97,8 +97,8 @@ Grid::Grid(int nH, int nL, double H, double L)
 	for (int i = 0; i < nE; i++)
 	{
 		elements[i].jacobian = new Jacobian(elements[i].getNodes());
-		elements[i].matrixh = new MatrixH(elements[i].jacobian, 25);
-		elements[i].matrixc = new MatrixC(elements[i].jacobian, 700, 7800);
+		elements[i].matrixh = new MatrixH(elements[i].jacobian);
+		elements[i].matrixc = new MatrixC(elements[i].jacobian);
 	}
 
 
@@ -158,7 +158,7 @@ void Grid::printGrid()
 	{
 		for (int j = 0; j < nL*nH; j++)
 		{
-			std::cout << globalMatrixC[i][j] << "  ";
+			std::cout << globalMatrixH[i][j] << "  ";
 		}
 		std::cout << std::endl;
 	}

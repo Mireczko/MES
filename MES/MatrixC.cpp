@@ -1,13 +1,14 @@
 #include "MatrixC.h"
+#include "GlobalData.h"
 
+extern GlobalData *data;
 MatrixC::MatrixC() {}
 MatrixC::~MatrixC() {}
 
-MatrixC::MatrixC(Jacobian *jacobian, double c, double ro)
+MatrixC::MatrixC(Jacobian *jacobian)
 {
 	this->jacobian = jacobian;
-	this->c = c;
-	this->ro = ro;
+
 
 	//DYNAMICZNA ALOKACJA TABLICY 3D
 	integral = new double **[4];
@@ -43,7 +44,7 @@ MatrixC::MatrixC(Jacobian *jacobian, double c, double ro)
 		{
 			for (int k = 0; k < 4; k++)
 			{
-				integral[i][k][j] = c * ro * jacobian->N[j][i] * jacobian->N[i][k] * jacobian->detJ[i];
+				integral[i][k][j] = (data->specific_heat) *(data->density) * jacobian->N[j][i] * jacobian->N[i][k] * jacobian->detJ[i];
 			}
 		}
 	}

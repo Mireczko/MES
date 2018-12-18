@@ -1,14 +1,14 @@
 #include "MatrixH.h"
+#include "GlobalData.h"
 
+extern GlobalData* data;
 MatrixH::MatrixH(){}
 MatrixH::~MatrixH(){}
 
-MatrixH::MatrixH(Jacobian* jacobian, double conductivity)
+MatrixH::MatrixH(Jacobian* jacobian)
 {
 
 	this->jacobian = jacobian;
-	this->conductivity = conductivity;
-
 
 	//DYNAMICZNA ALOKACJA TABLIC 3D
 	MatrixX = new double **[4];
@@ -66,7 +66,7 @@ MatrixH::MatrixH(Jacobian* jacobian, double conductivity)
 		{
 			for (int k = 0; k < 4; k++)
 			{
-				sumXY[i][j][k] = (MatrixX[i][j][k] + MatrixY[i][j][k])*conductivity;
+				sumXY[i][j][k] = (MatrixX[i][j][k] + MatrixY[i][j][k])*(data->conductivity);
 			}
 		}
 	}
