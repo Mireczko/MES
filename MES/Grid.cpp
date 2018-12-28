@@ -1,5 +1,7 @@
 #include "Grid.h"
+#include "GlobalData.h"
 
+extern GlobalData *data;
 Grid::Grid() {}
 Grid::~Grid(){}
 Grid::Grid(int nH, int nL, double H, double L)
@@ -95,20 +97,20 @@ Grid::Grid(int nH, int nL, double H, double L)
 
 	}
 
-	//OBLICZANIE MACIERZY JACOBIEGO ORAZ MACIERZY H DLA KA¯DEGO ELEMENTU
+	//OBLICZANIE MACIERZY JACOBIEGO, H, C, BC DLA KA¯DEGO ELEMENTU
 
 	for (int i = 0; i < nE; i++)
 	{
 		elements[i].jacobian = new Jacobian(elements[i].getNodes());
 		elements[i].matrixh = new MatrixH(elements[i].jacobian);
 		elements[i].matrixc = new MatrixC(elements[i].jacobian);
-		std::cout << "Element " << i << std::endl;
 		elements[i].matrixhbc = new MatrixHBC(elements[i].jacobian, elements[i].isOnEdge);
-		std::cout << std::endl << std::endl;
 	}
 
 
 	//GLOBALNA MACIERZ H
+	//GLOBALNA MACIERZ C
+	//GLOBALNA MACIERZ BC
 	for (int i = 0; i < nE; i++)
 	{
 		for (int j = 0; j < 4; j++)
@@ -116,21 +118,24 @@ Grid::Grid(int nH, int nL, double H, double L)
 			for (int k = 0; k < 4; k++)
 			{
 				globalMatrixH[elements[i].nodes[j].numer][elements[i].nodes[k].numer] += elements[i].matrixh->H[j][k];
+				globalMatrixC[elements[i].nodes[j].numer][elements[i].nodes[k].numer] += elements[i].matrixc->C[j][k];
+				globalMatrixHBC[elements[i].nodes[j].numer][elements[i].nodes[k].numer] += elements[i].matrixhbc->hbc[j][k];
 			}
 		}
 	}
 
-	//GLOBALNA MACIERZ C
-	for (int i = 0; i < nE; i++)
+	//C/simulation_step_time
+	//H + BC + C
+	for (int i = 0; i < 16; i++)
 	{
-		for (int j = 0; j < 4; j++)
+		for (int j = 0; j < 16; j++)
 		{
-			for (int k = 0; k < 4; k++)
-			{
-				globalMatrixC[elements[i].nodes[j].numer][elements[i].nodes[k].numer] += elements[i].matrixc->C[j][k];
-			}
+			globalMatrixC[i][j] /= data->simulation_step_time;
+			globalMatrixH[i][j] += globalMatrixC[i][j] + globalMatrixHBC[i][j];
 		}
 	}
+
+
 }
 
 void Grid::printGrid()
@@ -152,14 +157,10 @@ void Grid::printGrid()
 		{
 			std::cout << this->getElements()[i].isOnEdge[j] << "  ";
 		}
-		std::cout << std::endl;
-
-		////MACIERZ H KONTROLNIE
-		//std::cout <<std::endl <<std::endl;
-		//elements[i].printMatrixH();
-		//std::cout << std::endl << std::endl;
+		std::cout << std::endl <<std::endl;
 	}
 	//MACIERZ H/C GLOBALNA KONTROLNIE
+	std::cout<<std::endl << "Matrix H + C" << std::endl<<std::endl;
 	for (int i = 0; i < nL*nH; i++)
 	{
 		for (int j = 0; j < nL*nH; j++)

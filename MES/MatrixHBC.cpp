@@ -1,6 +1,8 @@
 #include "MatrixHBC.h"
+#include "GlobalData.h"
 #include <math.h>
-#include <iostream>
+
+extern GlobalData* data;
 
 MatrixHBC::MatrixHBC(){}
 MatrixHBC::~MatrixHBC(){}
@@ -112,8 +114,8 @@ MatrixHBC::MatrixHBC(Jacobian *jacobian, bool *isOnEdge)
 		{
 			for (int k = 0; k < 4; k++)
 			{
-				bc1[i][j][k] = powN[i][0][k] * powN[i][0][j] *25;
-				bc2[i][j][k] = powN[i][1][k] * powN[i][1][j] * 25;
+				bc1[i][j][k] = powN[i][0][k] * powN[i][0][j] * data->alfa;
+				bc2[i][j][k] = powN[i][1][k] * powN[i][1][j] * data->alfa;
 				sum[i][j][k] = (bc1[i][j][k] + bc2[i][j][k]) * sideLength[i] / 2;
 			}
 		}
@@ -127,7 +129,7 @@ MatrixHBC::MatrixHBC(Jacobian *jacobian, bool *isOnEdge)
 			{
 				hbc[i][j] += sum[k][i][j] * isOnEdge[k];
 
-			}std::cout << hbc[i][j] << "   ";
-		}std::cout << std::endl;
+			}
+		}
 	}
 }
