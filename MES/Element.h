@@ -1,6 +1,7 @@
 #pragma once
 #include "MatrixH.h"
 #include "MatrixC.h"
+#include "MatrixHBC.h"
 
 class Element
 {
@@ -10,6 +11,7 @@ class Element
 		Jacobian *jacobian;
 		MatrixH* matrixh;
 		MatrixC* matrixc;
+		MatrixHBC* matrixhbc;
 		bool *isOnEdge;
 		//MatrixH* matrixh = new MatrixH(jacobian, conductivity);
 
@@ -20,4 +22,5 @@ class Element
 		Node* getNodes();
 		void printMatrixH();
 		void printMatrixC();
+		void printMatrixHBC();
 };

@@ -1,6 +1,5 @@
 #pragma once
 #include "Element.h"
-//#include "Jacobian.h"
 #include <iostream>
 
 class Grid
@@ -12,6 +11,7 @@ class Grid
 		Element* elements;
 		double** globalMatrixH;
 		double** globalMatrixC;
+		double** globalMatrixHBC;
 
 	public:
 		Grid();

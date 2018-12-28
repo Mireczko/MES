@@ -1,10 +1,6 @@
-//#include <Eigen/Dense>
-
 #include "Grid.h"
 #include "GlobalData.h"
 extern GlobalData* data;
-//using namespace Eigen;
-
 
 int main()
 {

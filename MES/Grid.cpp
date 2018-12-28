@@ -15,10 +15,12 @@ Grid::Grid(int nH, int nL, double H, double L)
 	//DYNAMICZNA ALOKACJA TABLIC 2D
 	globalMatrixH = new double *[nH*nL];
 	globalMatrixC = new double *[nH*nL];
+	globalMatrixHBC = new double *[nH*nL];
 	for (int i = 0; i < nH*nL; i++)
 	{
 		globalMatrixH[i] = new double[nH*nL];
 		globalMatrixC[i] = new double[nH*nL];
+		globalMatrixHBC[i] = new double[nH*nL];
 	}	
 	for (int i = 0; i < nH*nL; i++)
 	{
@@ -26,6 +28,7 @@ Grid::Grid(int nH, int nL, double H, double L)
 		{
 			globalMatrixH[i][j] = 0;
 			globalMatrixC[i][j] = 0;
+			globalMatrixHBC[i][j] = 0;
 		}
 	}
 
@@ -65,26 +68,26 @@ Grid::Grid(int nH, int nL, double H, double L)
 	{
 		for (int j = 0; j < 4; j++)
 		{
-			//WARUNEK BRZEGOWY Z LEWEJ STRONY
-			if (elements[i].getNodes()[j].x == 0)
-			{
-				 elements[i].isOnEdge[0] = true;
-			}
-
 			//WARUNEK BRZEGOWY Z DO£U
 			if (elements[i].nodes[j].y == 0)
 			{
-				elements[i].isOnEdge[1] = true;
+				elements[i].isOnEdge[0] = true;
 			}
 
 			//WARUNEK BRZEGOWY Z PRAWEJ STRONY
 			if (elements[i].getNodes()[j].x == L)
 			{
-				elements[i].isOnEdge[2] = true;
+				elements[i].isOnEdge[1] = true;
 			}
 
 			//WARUNEK BRZEGOWY Z GÓRY
 			if (elements[i].getNodes()[j].y == H)
+			{
+				elements[i].isOnEdge[2] = true;
+			}
+
+			//WARUNEK BRZEGOWY Z LEWEJ STRONY
+			if (elements[i].getNodes()[j].x == 0)
 			{
 				elements[i].isOnEdge[3] = true;
 			}
@@ -99,6 +102,9 @@ Grid::Grid(int nH, int nL, double H, double L)
 		elements[i].jacobian = new Jacobian(elements[i].getNodes());
 		elements[i].matrixh = new MatrixH(elements[i].jacobian);
 		elements[i].matrixc = new MatrixC(elements[i].jacobian);
+		std::cout << "Element " << i << std::endl;
+		elements[i].matrixhbc = new MatrixHBC(elements[i].jacobian, elements[i].isOnEdge);
+		std::cout << std::endl << std::endl;
 	}
 
 
