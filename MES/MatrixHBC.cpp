@@ -61,11 +61,18 @@ MatrixHBC::MatrixHBC(Jacobian *jacobian, bool *isOnEdge)
 		}
 	}
 
+	detJ = new double[4];
+
 	//DLUGOSCI BOKOW
 	sideLength[0] = sqrt(pow(jacobian->x[0] - jacobian->x[1], 2) + pow(jacobian->y[0] - jacobian->y[1], 2));
 	sideLength[1] = sqrt(pow(jacobian->x[2] - jacobian->x[1], 2) + pow(jacobian->y[2] - jacobian->y[1], 2));
 	sideLength[2] = sqrt(pow(jacobian->x[3] - jacobian->x[2], 2) + pow(jacobian->y[3] - jacobian->y[2], 2));
 	sideLength[3] = sqrt(pow(jacobian->x[3] - jacobian->x[0], 2) + pow(jacobian->y[3] - jacobian->y[0], 2));
+
+	for (int i = 0; i < 4; i++)
+	{
+		detJ[i] = sideLength[i] / 2;
+	}
 
 
 	//WARTOSCI FUNKCJI KSZTALTU W PUNKTACH CALKOWANIA
@@ -132,4 +139,35 @@ MatrixHBC::MatrixHBC(Jacobian *jacobian, bool *isOnEdge)
 			}
 		}
 	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			delete[]pow1[i][j];
+			delete[]pow2[i][j];
+			delete[]pow3[i][j];
+			delete[]pow4[i][j];
+			delete[]powN[i][j];
+			delete[]bc1[i][j];
+			delete[]bc2[i][j];
+			delete[]sum[i][j];
+		}
+		delete[] pow1[i];
+		delete[] pow2[i];
+		delete[] pow3[i];
+		delete[] pow4[i];
+		delete[] powN[i];
+		delete[] bc1[i];
+		delete[] bc2[i];
+		delete[] sum[i];
+	}
+	delete[] pow1;
+	delete[] pow2;
+	delete[] pow3;
+	delete[] pow4;
+	delete[] powN;
+	delete[] bc1;
+	delete[] bc2;
+	delete[] sum;
 }

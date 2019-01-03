@@ -2,6 +2,7 @@
 #include "MatrixH.h"
 #include "MatrixC.h"
 #include "MatrixHBC.h"
+#include "VectorP.h"
 
 class Element
 {
@@ -12,8 +13,9 @@ class Element
 		MatrixH* matrixh;
 		MatrixC* matrixc;
 		MatrixHBC* matrixhbc;
+		VectorP * vectorP;
 		bool *isOnEdge;
-		//MatrixH* matrixh = new MatrixH(jacobian, conductivity);
+		int number;
 
 	public:
 		Element();

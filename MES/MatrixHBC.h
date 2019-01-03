@@ -13,6 +13,7 @@ class MatrixHBC
 		double ***bc2;
 		double ***sum;
 		double **hbc;
+		double *detJ;
 
 		double *sideLength;
 		//Jacobian *jacobian;

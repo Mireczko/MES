@@ -6,12 +6,14 @@ class Grid
 { 
 	public:
 		int nH, nL, nN, nE;
-		double L, H;
+		long double L, H;
 		Node* nodes;
 		Element* elements;
 		double** globalMatrixH;
 		double** globalMatrixC;
 		double** globalMatrixHBC;
+		double* temperatures;
+		double* globalVectorP;
 
 	public:
 		Grid();

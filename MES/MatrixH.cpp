@@ -82,4 +82,20 @@ MatrixH::MatrixH(Jacobian* jacobian)
 			}
 		}
 	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		for (int j = 0; j < 4; j++)
+		{
+			delete[]MatrixX[i][j];
+			delete[]MatrixY[i][j];
+			delete[]sumXY[i][j];
+		}
+		delete[] MatrixX[i];
+		delete[] MatrixY[i];
+		delete[] sumXY[i];
+	}
+	delete[] MatrixX;
+	delete[] MatrixY;
+	delete[] sumXY;
 }

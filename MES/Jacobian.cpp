@@ -103,6 +103,17 @@ Jacobian::Jacobian(Node* nodes)
 		dNdY[i][2] = (1.0 / detJ[i]) * (-dXdEta[i] * dNdKsi[i][2] + dXdKsi[i] * dNdEta[i][2]);
 		dNdY[i][3] = (1.0 / detJ[i]) * (-dXdEta[i] * dNdKsi[i][3] + dXdKsi[i] * dNdEta[i][3]);
 	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		delete[]dNdKsi[i];
+		delete[]dNdEta[i];
+		
+	}
+	delete[]dNdKsi;
+	delete[]dNdEta;
+	delete[]ksi;
+	delete[]eta;
 }
 
 Jacobian::Jacobian() {};
