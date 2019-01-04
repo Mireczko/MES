@@ -1,12 +1,12 @@
 initial_temperature=100
-simulation_time=500
-simulation_step_time=50
+simulation_time=100
+simulation_step_time=1
 ambient_temperature=1200
 alfa=300
 H=0.1
 L=0.1
-nH=4
-nL=4
+nH=31
+nL=31
 specific_heat=700
 conductivity=25
 density=7800

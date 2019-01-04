@@ -44,7 +44,6 @@ MatrixH::MatrixH(Jacobian* jacobian)
 		}
 	}
 
-
 	// {dN/dX}{dN/dX}^T * detJ		i	  {dN/dY}{dN/dY}^T* detJ	
 	for (int i = 0; i < 4; i++)
 	{

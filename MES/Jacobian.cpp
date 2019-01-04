@@ -93,6 +93,7 @@ Jacobian::Jacobian(Node* nodes)
 	// POCHODNE FUNKCJI KSZTA£TU PO X I Y
 	for (int i = 0; i < 4; i++)
 	{
+		//	1/wyznacznik jakobianu * jakobian odwrotny * wektor pochodnych funckji kszat³tu po ksi i eta 
 		dNdX[i][0] = (1.0 / detJ[i]) * ((dYdEta[i] * dNdKsi[i][0]) - (dYdKsi[i] * dNdEta[i][0]));
 		dNdX[i][1] = (1.0 / detJ[i]) * ((dYdEta[i] * dNdKsi[i][1]) - (dYdKsi[i] * dNdEta[i][1]));
 		dNdX[i][2] = (1.0 / detJ[i]) * ((dYdEta[i] * dNdKsi[i][2]) - (dYdKsi[i] * dNdEta[i][2]));

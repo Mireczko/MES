@@ -15,7 +15,6 @@ Grid::Grid(int nH, int nL, double H, double L)
 	this->nN = nH * nL;
 	this->nodes = new Node[nN];
 
-	double pulpa = this->L;
 	double **globalVectorP2d;
 	//DYNAMICZNA ALOKACJA TABLIC 2D i 1D
 	globalMatrixH = new double *[nH*nL];
@@ -51,15 +50,15 @@ Grid::Grid(int nH, int nL, double H, double L)
 
 	//W Y P E £ N I A N I E    T A B L I C Y   N O D Ó W
 	int k = 0;
-	double iIncr = (L / (nL - 1.0)*1.0);
-	double jIncr = (H / (nH - 1.0)*1.0);
-	for (double i = 0; i < nL*iIncr - (0.00000000000000015); i += iIncr )
+	double iIncr = (L / (nL - 1.0)*1.0);	//nL-1 to ilosc odcinkow po dlugosci
+	double jIncr = (H / (nH - 1.0)*1.0);	//nL-H to ilocs odcinkow po wysokosci
+	for (double i = 0; i < nL*iIncr - (0.00000000000000015); i += iIncr )		//petla po dlugosci
 	{
-		for (double j = 0; j < nH*jIncr - (0.00000000000000015); j += jIncr)
+		for (double j = 0; j < nH*jIncr - (0.00000000000000015); j += jIncr)	//petla po wysokosci
 		{
 			nodes[k].numer = k;
-			nodes[k].setx(i);
-			nodes[k].sety(j);
+			nodes[k].setx(i);			//ustawianie wartosci x punktu
+			nodes[k].sety(j);			//ustawianie wartosci y punktu
 			k++;
 		}
 	}
@@ -69,14 +68,14 @@ Grid::Grid(int nH, int nL, double H, double L)
 	//W Y P E £ N I A N I E    T A B L I C Y   E L E M E N T Ó W
 	k = 0;
 
-	for (int i = 0; i < (nL-1); i++)
+	for (int i = 0; i < (nL-1); i++)			//petla po ilosci odcinkow po dlugosci
 	{
-		for (k; k < (i+1)*(nH - 1); k++)
+		for (k; k < (i+1)*(nH - 1); k++)		//petla po ilosci odcinkow po wysokosci
 		{
-			elements[k].getNodes()[0] = nodes[k+i];
-			elements[k].getNodes()[1] = nodes[k + nH +i];
-			elements[k].getNodes()[2] = nodes[k + nH + 1+i];
-			elements[k].getNodes()[3] = nodes[k + 1+i];
+			elements[k].getNodes()[0] = nodes[k+i];				//lewy dolny
+			elements[k].getNodes()[1] = nodes[k + nH +i];		//prawy dolny
+			elements[k].getNodes()[2] = nodes[k + nH + 1+i];	//prawy górny
+			elements[k].getNodes()[3] = nodes[k + 1+i];			//lewy górny
 			elements[i].number = k;
 		}
 	}
@@ -190,24 +189,25 @@ Grid::Grid(int nH, int nL, double H, double L)
 		double **tmpGlobalMatrixH = new double*[nN];
 		for (int i = 0; i < nN; i++)
 		{
-			tmpGlobalMatrixH[i] = new double[nN + 1];
+			tmpGlobalMatrixH[i] = new double[nN + 1];	//macierz wspó³czynnikow z dopisanym wektorem P
 		}
 
-		//Gauss elimination
+		//Eliminacja gaussa
 		for (int i = 0; i < nN; i++) {
 			for (int j = 0; j < nN+1; j++) {
 				if (j == nN) {
-					tmpGlobalMatrixH[i][j] = vectorP[i];
+					tmpGlobalMatrixH[i][j] = vectorP[i];//dopisujemy wektor P
 				}
-				else tmpGlobalMatrixH[i][j] = HC[i][j];
+				else tmpGlobalMatrixH[i][j] = HC[i][j];//macierz wspolczynnikow
 			}
 		}
-
+		
+		//Eliminacja wspó³czynników
 		for (int i = 0; i < nN - 1; i++)
 		{
 			for (int j = i + 1; j < nN; j++)
 			{
-				m = -tmpGlobalMatrixH[j][i] / tmpGlobalMatrixH[i][i];
+				m = -tmpGlobalMatrixH[j][i] / tmpGlobalMatrixH[i][i];	//m mnoznik przez który mnozone sa elementy macierzy
 				for (int k = i + 1; k <= nN; k++)
 				{
 					tmpGlobalMatrixH[j][k] += m * tmpGlobalMatrixH[i][k];
@@ -215,9 +215,10 @@ Grid::Grid(int nH, int nL, double H, double L)
 			}
 		}
 
+		//Wyliczanie niewiadomych
 		for (int i = nN - 1; i >= 0; i--)
 		{
-			s = tmpGlobalMatrixH[i][nN];
+			s = tmpGlobalMatrixH[i][nN];								//s zlicza sume iloczynow
 			for (int j = nN - 1; j >= i + 1; j--)
 			{
 				s -= tmpGlobalMatrixH[i][j] * vectorP[j];
@@ -226,14 +227,10 @@ Grid::Grid(int nH, int nL, double H, double L)
 			temperatures[i]	= vectorP[i];
 		}
 
-		double minTemp = 0, maxTemp = 0;
-		for (int i = 0; i < nN; i++)
+		double minTemp = temperatures[0];
+		double maxTemp = temperatures[0];
+		for (int i = 1; i < nN; i++)
 		{
-			if (i == 0)
-			{
-				minTemp = temperatures[i];
-				maxTemp = temperatures[i];
-			}
 			if (temperatures[i] > maxTemp)
 			{
 				maxTemp = temperatures[i];
