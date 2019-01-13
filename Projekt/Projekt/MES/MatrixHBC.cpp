@@ -139,34 +139,34 @@ MatrixHBC::MatrixHBC(Jacobian *jacobian, bool *isOnEdge)
 		}
 	}
 
-	for (int i = 0; i < 4; i++)
-	{
-		for (int j = 0; j < 4; j++)
-		{
-			delete[]pow1[i][j];
-			delete[]pow2[i][j];
-			delete[]pow3[i][j];
-			delete[]pow4[i][j];
-			delete[]powN[i][j];
-			delete[]bc1[i][j];
-			delete[]bc2[i][j];
-			delete[]sum[i][j];
-		}
-		delete[] pow1[i];
-		delete[] pow2[i];
-		delete[] pow3[i];
-		delete[] pow4[i];
-		delete[] powN[i];
-		delete[] bc1[i];
-		delete[] bc2[i];
-		delete[] sum[i];
-	}
-	delete[] pow1;
-	delete[] pow2;
-	delete[] pow3;
-	delete[] pow4;
-	delete[] powN;
-	delete[] bc1;
-	delete[] bc2;
-	delete[] sum;
+	//for (int i = 0; i < 4; i++)
+	//{
+	//	for (int j = 0; j < 4; j++)
+	//	{
+	//		delete[]pow1[i][j];
+	//		delete[]pow2[i][j];
+	//		delete[]pow3[i][j];
+	//		delete[]pow4[i][j];
+	//		delete[]powN[i][j];
+	//		delete[]bc1[i][j];
+	//		delete[]bc2[i][j];
+	//		delete[]sum[i][j];
+	//	}
+	//	delete[] pow1[i];
+	//	delete[] pow2[i];
+	//	delete[] pow3[i];
+	//	delete[] pow4[i];
+	//	delete[] powN[i];
+	//	delete[] bc1[i];
+	//	delete[] bc2[i];
+	//	delete[] sum[i];
+	//}
+	//delete[] pow1;
+	//delete[] pow2;
+	//delete[] pow3;
+	//delete[] pow4;
+	//delete[] powN;
+	//delete[] bc1;
+	//delete[] bc2;
+	//delete[] sum;
 }

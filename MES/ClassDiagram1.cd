@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Element">
+    <Position X="2" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAAAACgIAAQAACBEIIAAAAIAAAAIKAA=</HashCode>
+      <FileName>Element.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="GlobalData">
+    <Position X="6.5" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAEAAAAAEQAAAAAAAABAAAAAAYBAAAIECEQAAAE=</HashCode>
+      <FileName>GlobalData.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Grid">
+    <Position X="8" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BAAACgAIEAgQExAAAQAAAATAAAAAAQCAAQQAAEQQIQA=</HashCode>
+      <FileName>Grid.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Jacobian">
+    <Position X="3.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAEEAAAEAAAIABgAAAoAAAAAAAEAhgABAAAAA=</HashCode>
+      <FileName>Jacobian.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MatrixC">
+    <Position X="5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEAAAAAAAAAAAAABAAIABAAAAgAAAAAA=</HashCode>
+      <FileName>MatrixC.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MatrixH">
+    <Position X="3.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAAAAAAAAAAAIIAwAAAAAEAAAgA=</HashCode>
+      <FileName>MatrixH.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MatrixHBC">
+    <Position X="5" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>CAAADAAAAAAAAAEBAAAAAAAAIAAAAAAAAAAAAAAgTAM=</HashCode>
+      <FileName>MatrixHBC.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Node">
+    <Position X="2" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAFgAAEAAAA=</HashCode>
+      <FileName>Node.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="VectorP">
+    <Position X="6.5" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAABAAAAAAAAAAABAEAAAgAAAAAAAAAAAAAAARgAAA=</HashCode>
+      <FileName>VectorP.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
